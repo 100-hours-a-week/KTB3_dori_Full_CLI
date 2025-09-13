@@ -43,7 +43,7 @@ public class TestData {
         music1.length = "3:53";
         music1.genre = MusicGenre.POP;
         music1.releaseYear = 2017;
-        music1.note = "빌보드 1위gi";
+        music1.note = "빌보드 1위";
         music1.reviews.add(new Review("D", 5, "good"));
         music1.reviews.add(new Review("E", 4, "good"));
         mediaTask.addMusic(music1);
