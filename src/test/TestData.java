@@ -17,9 +17,9 @@ public class TestData {
         movie1.cast.add("조셉 고든-레빗");
         movie1.cast.add("Joseph");
         movie1.cast.add("joseph");
-        movie1.note = "꿈속의 꿈!";
-        movie1.reviews.add(new Review("Alice", 5, "완전 최고!"));
-        movie1.reviews.add(new Review("Bob", 4, "스토리가 흥미로웠어요."));
+        movie1.note = "꿈";
+        movie1.reviews.add(new Review("A", 5, "good"));
+        movie1.reviews.add(new Review("B", 4, "good"));
         mediaTask.addVideo(movie1);
 
         Drama drama1 = new Drama();
@@ -32,8 +32,8 @@ public class TestData {
         drama1.cast.add("애런 폴");
         drama1.cast.add("Joseph");
         drama1.cast.add("joseph");
-        drama1.note = "화학 선생님의 범죄 이야기";
-        drama1.reviews.add(new Review("Charlie", 5, "인생 드라마!"));
+        drama1.note = "화학";
+        drama1.reviews.add(new Review("C", 5, "good"));
         mediaTask.addVideo(drama1);
 
         Music music1 = new Music();
@@ -43,9 +43,9 @@ public class TestData {
         music1.length = "3:53";
         music1.genre = MusicGenre.POP;
         music1.releaseYear = 2017;
-        music1.note = "빌보드 1위 곡!";
-        music1.reviews.add(new Review("David", 5, "중독성 있는 곡"));
-        music1.reviews.add(new Review("Eva", 4, "좋아요!"));
+        music1.note = "빌보드 1위";
+        music1.reviews.add(new Review("D", 5, "good"));
+        music1.reviews.add(new Review("E", 4, "good"));
         mediaTask.addMusic(music1);
 
         Music music2 = new Music();
@@ -56,7 +56,7 @@ public class TestData {
         music2.genre = MusicGenre.POP;
         music2.releaseYear = 2017;
         music2.note = "감성 발라드";
-        music2.reviews.add(new Review("Bob", 4, "좋아요"));
+        music2.reviews.add(new Review("F", 4, "good"));
         mediaTask.addMusic(music2);
     }
 }
