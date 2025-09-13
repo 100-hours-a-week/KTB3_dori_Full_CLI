@@ -3,8 +3,8 @@
 자바 CLI 기반 프로그램 만들기
 
 - 클래스 다이어 그램 작성
+![과제-7](https://github.com/user-attachments/assets/6ff6e5e9-65fd-4f20-b015-219c384f3166)
 
-![과제-7.jpg](attachment:0319501d-a0b6-44c1-ad90-974bc69c160e:과제-7.jpg)
 
 ## 프로그램 설명
 
