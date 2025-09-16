@@ -1,8 +1,12 @@
 package test;
 
-import domain.*;
-import genre.MusicGenre;
-import genre.VideoGenre;
+import domain.audio.Music;
+import domain.audio.MusicGenre;
+import domain.review.Review;
+import domain.video.VideoGenre;
+import domain.video.Drama;
+import domain.video.Movie;
+import service.MediaTask;
 
 public class TestData {
 
@@ -12,7 +16,7 @@ public class TestData {
         movie1.releaseYear = 2010;
         movie1.genre = VideoGenre.SF;
         movie1.director = "크리스토퍼 놀란";
-        movie1.length = 148;
+        movie1.runningTime = 148;
         movie1.cast.add("레오나르도 디카프리오");
         movie1.cast.add("조셉 고든-레빗");
         movie1.cast.add("Joseph");
@@ -40,7 +44,7 @@ public class TestData {
         music1.title = "Shape of You";
         music1.artist = "Ed Sheeran";
         music1.album = "Divide";
-        music1.length = "3:53";
+        music1.musicLength = "3:53";
         music1.genre = MusicGenre.POP;
         music1.releaseYear = 2017;
         music1.note = "빌보드 1위";
@@ -52,7 +56,7 @@ public class TestData {
         music2.title = "Perfect";
         music2.artist = "Ed Sheeran";
         music2.album = "Divide";
-        music2.length = "4:23";
+        music2.musicLength = "4:23";
         music2.genre = MusicGenre.POP;
         music2.releaseYear = 2017;
         music2.note = "감성 발라드";

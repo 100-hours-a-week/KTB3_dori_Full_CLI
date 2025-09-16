@@ -1,17 +1,29 @@
+import domain.audio.Music;
 import domain.*;
+import service.MediaTask;
 import test.TestData;
+import domain.video.Drama;
+import domain.video.Movie;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    private static final Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         boolean exit = true;
         MediaTask mediaTask = new MediaTask();
         TestData.loadTest(mediaTask);
         while(exit) {
             showMenu();
-            int command = sc.nextInt();
+            int command = -1;
+            try {
+                command = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("숫자를 입력해 주세요");
+            } finally {
+                sc.nextLine();
+            }
             switch (command) {
                 case 1: register(mediaTask); break;
                 case 2: viewAll(mediaTask); break;
@@ -29,15 +41,15 @@ public class Main {
     }
 
     private static void searchMedia(MediaTask mediaTask) {
-        mediaTask.search();
+        mediaTask.search(sc);
     }
 
     private static void deleteMedia(MediaTask mediaTask) {
-        mediaTask.delete();
+        mediaTask.delete(sc);
     }
 
     private static void writeReview(MediaTask mediaTask) {
-        mediaTask.writeReview();
+        mediaTask.writeReview(sc);
     }
 
     public static void showMenu() {
@@ -57,32 +69,39 @@ public class Main {
         System.out.println("3. 대중음악");
         System.out.println("0. 돌아가기");
         System.out.print(">>>> ");
-        Scanner sc = new Scanner(System.in);
-        int com = sc.nextInt();
+        int com = -1;
+        try {
+            com = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("숫자를 입력해 주세요!");
+        } finally {
+            sc.nextLine();
+        }
         switch (com) {
             case 1:
                 Media movie = new Movie();
-                mediaTask.addVideo(movie.registerMedia());
+                mediaTask.addVideo(movie.registerMedia(sc));
                 break;
             case 2:
                 Media drama = new Drama();
-                mediaTask.addVideo(drama.registerMedia());
+                mediaTask.addVideo(drama.registerMedia(sc));
                 break;
 
             case 3:
                 Media music = new Music();
-                mediaTask.addMusic(music.registerMedia());
+                mediaTask.addMusic(music.registerMedia(sc));
                 break;
 
             case 0:
                 break;
+
             default:
                 System.out.println("잘못된 입력입니다.");
                 break;
         }
     }
     public static void viewAll(MediaTask mediaTask) {
-        mediaTask.viewAll();
+        mediaTask.viewAll(sc);
     }
 
 

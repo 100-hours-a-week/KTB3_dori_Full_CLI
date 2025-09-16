@@ -1,10 +1,11 @@
-package domain;
+package domain.audio;
 
-import java.util.Scanner;
+import domain.Media;
+import domain.review.Review;
 
-public class Audio extends Media{
+public class Audio extends Media {
     public String artist;
-    public String length;
+    public String musicLength;
     public float avgScore = 0;
 
     public float calcAvgScore() {
@@ -18,7 +19,7 @@ public class Audio extends Media{
     }
 
     @Override
-    public boolean search(String keyword) {
+    public boolean isMediaSearch(String keyword) {
         String lowerKeyword = keyword.toLowerCase();
         return this.title.toLowerCase().contains(lowerKeyword)
                 || this.artist.toLowerCase().contains(lowerKeyword);

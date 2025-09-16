@@ -1,12 +1,13 @@
-package domain;
+package domain.video;
 
 
-import genre.VideoGenre;
+import domain.Media;
+import domain.review.Review;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Video extends Media{
+public class Video extends Media {
 
     public List<String> cast = new ArrayList<>();
     public float avgScore = 0;
@@ -23,7 +24,7 @@ public class Video extends Media{
     }
 
     @Override
-    public boolean search(String keyword) {
+    public boolean isMediaSearch(String keyword) {
         String lowerKeyword = keyword.toLowerCase();
         if (this.title.toLowerCase().contains(lowerKeyword)) {
             return true;

@@ -1,9 +1,13 @@
 package domain;
 
+import domain.review.Review;
+
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Media {
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd/HH:mm:ss");
+
     public String title;
     public int releaseYear;
     public String note;
@@ -20,9 +24,8 @@ public class Media {
         this.reviews = reviews;
     }
 
-    public Media registerMedia() {
-        Scanner sc = new Scanner(System.in);
-
+    public Media registerMedia(Scanner sc) {
+        sc.nextLine();
         System.out.println("미디어 제목을 입력하세요");
         title = sc.nextLine();
 
@@ -84,7 +87,7 @@ public class Media {
         reviews.add(review);
     }
 
-    public boolean search(String keyword) {
+    public boolean isMediaSearch(String keyword) {
         return false;
     }
 }
