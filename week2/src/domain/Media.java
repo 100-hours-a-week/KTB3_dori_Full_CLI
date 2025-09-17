@@ -11,6 +11,7 @@ public class Media {
     public String title;
     public int releaseYear;
     public String note;
+    public float avgScore = 0;
     public List<Review> reviews = new ArrayList<>();
 
 
@@ -40,10 +41,8 @@ public class Media {
     }
 
     public void viewList() {
-        System.out.println("제목: " + title +
-                " / 메모: " + note +
-                " / 출시연도: " + releaseYear + "년" +
-                " / 카테고리: " + this.getClass().getSimpleName());
+        System.out.printf("제목: %s / 메모: %s / 출시연도: %d년 / 카테고리: %s / 사용자 평균 별점: %.1f\n",
+                title, note, releaseYear, this.getClass().getSimpleName(), calcAvgScore());
     }
 
     public void viewDetail() {
@@ -87,7 +86,27 @@ public class Media {
         reviews.add(review);
     }
 
+    public float calcAvgScore() {
+        if (reviews.isEmpty()) return avgScore;
+        float sum = 0;
+        for (Review review : reviews) {
+            sum += review.score;
+        }
+        avgScore = sum / reviews.size();
+        return avgScore;
+    }
+
     public boolean isMediaSearch(String keyword) {
         return false;
     }
+
+    public float getAvgScore() {
+        return avgScore;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+
 }

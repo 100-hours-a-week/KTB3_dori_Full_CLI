@@ -31,6 +31,7 @@ public class MediaTask {
             m.viewList();
             i++;
         }
+
         int choice = sc.nextInt();
         mediaList.get(choice - 1).viewDetail();
         System.out.println("뒤로 가려면 아무 숫자나 입력하세요");

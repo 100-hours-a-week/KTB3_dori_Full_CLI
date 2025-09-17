@@ -1,6 +1,7 @@
 import domain.audio.Music;
 import domain.*;
 import service.MediaTask;
+import service.ReviewReminder;
 import test.TestData;
 import domain.video.Drama;
 import domain.video.Movie;
@@ -16,9 +17,12 @@ public class Main {
         TestData.loadTest(mediaTask);
         while(exit) {
             showMenu();
+            Thread thread = new Thread(new ReviewReminder(mediaTask));
+            thread.start();
             int command = -1;
             try {
                 command = sc.nextInt();
+                thread.interrupt();
             } catch (InputMismatchException e) {
                 System.out.println("숫자를 입력해 주세요");
             } finally {
