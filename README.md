@@ -1,4 +1,4 @@
-# KTB 풀스택 3기 dori.ka(가한솔) 과제 Repository
+# 카카오 테크 부트캠프 풀스택 3기 dori 과제
 
 ## 1주차 과제
 
