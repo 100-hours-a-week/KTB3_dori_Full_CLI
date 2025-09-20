@@ -1,7 +1,7 @@
 import domain.audio.Music;
 import domain.*;
 import service.MediaTask;
-import service.ReviewReminder;
+import service.MediaReminder;
 import test.TestData;
 import domain.video.Drama;
 import domain.video.Movie;
@@ -12,12 +12,13 @@ import java.util.Scanner;
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+        System.out.println("실행중인 스레드: " + Thread.currentThread().getName());
         boolean exit = true;
         MediaTask mediaTask = new MediaTask();
         TestData.loadTest(mediaTask);
         while(exit) {
             showMenu();
-            Thread thread = new Thread(new ReviewReminder(mediaTask));
+            Thread thread = new Thread(new MediaReminder(mediaTask));
             thread.start();
             int command = -1;
             try {

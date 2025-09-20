@@ -2,7 +2,6 @@ package domain.video;
 
 
 import domain.Media;
-import domain.review.Review;
 
 import java.util.ArrayList;
 import java.util.List;

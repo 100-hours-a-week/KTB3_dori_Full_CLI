@@ -7,14 +7,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ReviewReminder implements Runnable{
+public class MediaReminder implements Runnable{
 
     private MediaTask mediaTask;
     public List<Media> list = new ArrayList<>();
-    public ReviewReminder() {
+    public MediaReminder() {
     }
 
-    public ReviewReminder(MediaTask mediaTask) {
+    public MediaReminder(MediaTask mediaTask) {
         this.mediaTask = mediaTask;
     }
 
@@ -22,6 +22,7 @@ public class ReviewReminder implements Runnable{
     public void run() {
         try {
             Thread.sleep(5000);
+            System.out.println("실행중인 스레드: " + Thread.currentThread().getName());
             System.out.println();
             System.out.println("====가장 좋은 평점을 받은 작품들 입니다!====");
             System.out.println("====리뷰를 작성하기 전에 참고하세요====");

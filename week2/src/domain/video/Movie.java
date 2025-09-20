@@ -3,7 +3,6 @@ package domain.video;
 import domain.Media;
 import domain.review.Review;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Movie extends Video{

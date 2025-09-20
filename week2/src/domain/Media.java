@@ -26,7 +26,6 @@ public class Media {
     }
 
     public Media registerMedia(Scanner sc) {
-        sc.nextLine();
         System.out.println("미디어 제목을 입력하세요");
         title = sc.nextLine();
 

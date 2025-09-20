@@ -21,8 +21,8 @@ public class TestData {
         movie1.cast.add("레오나르도 디카프리오");
         movie1.cast.add("조셉 고든-레빗");
         movie1.note = "꿈";
-        movie1.reviews.add(new Review("A", 5, "good"));
-        movie1.reviews.add(new Review("B", 4, "good"));
+        movie1.reviews.add(new Review("A", 9, "good"));
+        movie1.reviews.add(new Review("B", 8, "good"));
         mediaTask.addVideo(movie1);
 
         Movie movie2 = new Movie();
@@ -34,9 +34,9 @@ public class TestData {
         movie2.cast.add("매튜 매커너히");
         movie2.cast.add("앤 해서웨이");
         movie2.note = "우주";
-        movie2.reviews.add(new Review("C", 5, "good"));
-        movie2.reviews.add(new Review("D", 5, "good"));
-        movie2.reviews.add(new Review("E", 4, "good"));
+        movie2.reviews.add(new Review("C", 10, "good"));
+        movie2.reviews.add(new Review("D", 10, "good"));
+        movie2.reviews.add(new Review("E", 8, "good"));
         mediaTask.addVideo(movie2);
 
         Movie movie3 = new Movie();
@@ -48,8 +48,8 @@ public class TestData {
         movie3.cast.add("크리스찬 베일");
         movie3.cast.add("히스 레저");
         movie3.note = "배트맨";
-        movie3.reviews.add(new Review("F", 5, "good"));
-        movie3.reviews.add(new Review("G", 5, "good"));
+        movie3.reviews.add(new Review("F", 10, "good"));
+        movie3.reviews.add(new Review("G", 10, "good"));
         mediaTask.addVideo(movie3);
 
         // 드라마 데이터
@@ -62,7 +62,7 @@ public class TestData {
         drama1.cast.add("브라이언 크랜스턴");
         drama1.cast.add("애런 폴");
         drama1.note = "화학";
-        drama1.reviews.add(new Review("H", 5, "good"));
+        drama1.reviews.add(new Review("H", 10, "good"));
         mediaTask.addVideo(drama1);
 
         Drama drama2 = new Drama();
@@ -74,8 +74,8 @@ public class TestData {
         drama2.cast.add("키트 해링턴");
         drama2.cast.add("에밀리아 클라크");
         drama2.note = "판타지";
-        drama2.reviews.add(new Review("I", 4, "good"));
-        drama2.reviews.add(new Review("J", 3, "good"));
+        drama2.reviews.add(new Review("I", 8, "good"));
+        drama2.reviews.add(new Review("J", 6, "good"));
         mediaTask.addVideo(drama2);
 
         // 음악 데이터
@@ -87,8 +87,8 @@ public class TestData {
         music1.genre = MusicGenre.POP;
         music1.releaseYear = 2017;
         music1.note = "빌보드 1위";
-        music1.reviews.add(new Review("K", 5, "good"));
-        music1.reviews.add(new Review("L", 4, "good"));
+        music1.reviews.add(new Review("K", 10, "good"));
+        music1.reviews.add(new Review("L", 8, "good"));
         mediaTask.addMusic(music1);
 
         Music music2 = new Music();
@@ -99,7 +99,7 @@ public class TestData {
         music2.genre = MusicGenre.POP;
         music2.releaseYear = 2017;
         music2.note = "발라드";
-        music2.reviews.add(new Review("M", 4, "good"));
+        music2.reviews.add(new Review("M", 8, "good"));
         mediaTask.addMusic(music2);
 
         Music music3 = new Music();
@@ -110,9 +110,9 @@ public class TestData {
         music3.genre = MusicGenre.ROCK;
         music3.releaseYear = 1975;
         music3.note = "명곡";
-        music3.reviews.add(new Review("N", 5, "good"));
-        music3.reviews.add(new Review("O", 5, "good"));
-        music3.reviews.add(new Review("P", 5, "good"));
+        music3.reviews.add(new Review("N", 10, "good"));
+        music3.reviews.add(new Review("O", 10, "good"));
+        music3.reviews.add(new Review("P", 10, "good"));
         mediaTask.addMusic(music3);
 
         Music music4 = new Music();
@@ -123,8 +123,8 @@ public class TestData {
         music4.genre = MusicGenre.POP;
         music4.releaseYear = 2019;
         music4.note = "빌보드 히트";
-        music4.reviews.add(new Review("Q", 3, "good"));
-        music4.reviews.add(new Review("R", 2, "good"));
+        music4.reviews.add(new Review("Q", 6, "good"));
+        music4.reviews.add(new Review("R", 4, "good"));
         mediaTask.addMusic(music4);
     }
 }
