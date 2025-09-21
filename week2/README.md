@@ -16,6 +16,7 @@
 3. 메뉴를 선택하는 과정에서 숫자를 입력하지 않으면 생기는 예외를 try-catch로 예외를 처리했습니다.
 4. Audio와 Movie에서 변수명이 length로 동일하지만 타입이 달라서 생기는 혼란을 없애기 위해 각각 musicLength, runningTime으로 수정했습니다.
 5. 날짜 포맷 문자열이 중복되는 것을 조부모 클래스에 static 변수로 FORMATTER로 선언해 중복을 제거했습니다.
+6. 평점 변수인 avgScore, 계산하는 메서드인 avgCalculate() 메서드 Media(조부모 클래스)로 이동
 
 ### 2주차 과제
 
