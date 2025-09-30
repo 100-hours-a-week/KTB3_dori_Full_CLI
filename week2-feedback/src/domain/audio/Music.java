@@ -33,7 +33,8 @@ public class Music extends Audio {
         System.out.println("제목: " + this.getTitle());
         System.out.println("출시연도: " + this.getReleaseYear());
         System.out.println("가수: " + this.getArtist());
-        System.out.println("앨범: " + album);
+        System.out.println("장르: " + this.getGenre());
+        System.out.println("앨범: " + this.getAlbum());
         System.out.println("음악 길이: " + this.getMusicLength());
         System.out.println("메모: " + this.getNote());
         System.out.println("=========리뷰==========");

@@ -36,6 +36,7 @@ public class Drama extends Video{
     public void viewDetail() {
         System.out.println("제목: " + this.getTitle());
         System.out.println("출시연도: " + this.getReleaseYear());
+        System.out.println("장르: " + this.getGenre());
         System.out.println("시즌: " + season);
         System.out.println("에피소드 수: " + episode);
         System.out.print("출연진: ");

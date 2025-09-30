@@ -10,7 +10,7 @@ public class Audio extends Media {
     public boolean isMediaSearch(String keyword) {
         String lowerKeyword = keyword.toLowerCase();
         return this.getTitle().toLowerCase().contains(lowerKeyword)
-                || this.artist.toLowerCase().contains(lowerKeyword);
+                || this.getArtist().toLowerCase().contains(lowerKeyword);
     }
 
     public String getArtist() {

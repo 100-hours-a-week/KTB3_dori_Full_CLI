@@ -39,13 +39,13 @@ public class Movie extends Video{
         System.out.println("제목: " + this.getTitle());
         System.out.println("장르: " + this.getGenre());
         System.out.println("출시연도: " + this.getReleaseYear());
-        System.out.println("감독 이름: " + director);
+        System.out.println("감독 이름: " + this.getDirector());
         System.out.print("출연진: ");
         for (String s : this.getCast()) {
             System.out.print(s + ", ");
         }
         System.out.println();
-        System.out.println("러닝 타임: " + runningTime + "분");
+        System.out.println("러닝 타임: " + this.getRunningTime() + "분");
         System.out.println("메모: " + this.getNote());
         super.viewDetail();
     }

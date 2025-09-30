@@ -2,13 +2,11 @@ package service;
 
 import domain.Media;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MediaTask {
-    public List<Media> mediaList = new ArrayList<>();
+    public List<Media> mediaList = new CopyOnWriteArrayList<>();
     public List<Media> videoList = new ArrayList<>();
     public List<Media> audioList = new ArrayList<>();
 
