@@ -6,14 +6,14 @@ import domain.review.Review;
 import java.util.Scanner;
 
 public class Music extends Audio {
-    public String album;
-    public MusicGenre genre;
+    private String album;
+    private MusicGenre genre;
 
     @Override
     public Media registerMedia(Scanner sc) {
         super.registerMedia(sc);
         System.out.println("가수를 입력하세요");
-        artist = sc.nextLine();
+        this.setArtist(sc.nextLine());
 
         System.out.println("대표 장르를 입력하세요");
         System.out.println("(POP, ROCK, HIPHOP, JAZZ, SOUL, OST, FORK, COUNTRY, ETC)");
@@ -24,29 +24,35 @@ public class Music extends Audio {
         album = sc.nextLine();
 
         System.out.println("음악 길이를 입력하세요(0:00)");
-        musicLength = sc.nextLine();
+        this.setMusicLength(sc.nextLine());
         return this;
     }
 
     @Override
     public void viewDetail() {
-        System.out.println("제목: " + title);
-        System.out.println("출시연도: " + releaseYear);
-        System.out.println("가수: " + artist);
+        System.out.println("제목: " + this.getTitle());
+        System.out.println("출시연도: " + this.getReleaseYear());
+        System.out.println("가수: " + this.getArtist());
         System.out.println("앨범: " + album);
-        System.out.println("음악 길이: " + musicLength);
-        System.out.println("메모: " + note);
+        System.out.println("음악 길이: " + this.getMusicLength());
+        System.out.println("메모: " + this.getNote());
         System.out.println("=========리뷰==========");
-        calcAvgScore();
-        System.out.printf("사용자 평균 별점: %.1f \n", calcAvgScore());
-        int i = 1;
-        for (Review review : reviews) {
-            System.out.println(i +". " +
-                    "작성자: " + review.writer
-                    + " 평점: " + review.score
-                    + " 리뷰 내용: " + review.comment
-                    + " 작성일: " + review.date.format(FORMATTER));
-            i++;
-        }
+        super.viewDetail();
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public MusicGenre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(MusicGenre genre) {
+        this.genre = genre;
     }
 }

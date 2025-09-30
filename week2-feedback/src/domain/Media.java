@@ -8,11 +8,11 @@ import java.util.*;
 public class Media {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd/HH:mm:ss");
 
-    public String title;
-    public int releaseYear;
-    public String note;
-    public float avgScore = 0;
-    public List<Review> reviews = new ArrayList<>();
+    private String title;
+    private int releaseYear;
+    private String note;
+    private float avgScore = 0;
+    private List<Review> reviews = new ArrayList<>();
 
 
     public Media() {
@@ -45,18 +45,17 @@ public class Media {
     }
 
     public void viewDetail() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/HH:mm:ss");
-        System.out.println("제목: " + title);
-        System.out.println("출시연도: " + releaseYear);
-        System.out.println("메모: " + note);
         System.out.println("=========리뷰==========");
+        calcAvgScore();
+        System.out.printf("사용자 평균 별점: %.1f \n", calcAvgScore());
         int i = 1;
-        for (Review review : reviews) {
-            System.out.println(i +". "
-                    + "작성자: " + review.writer
-                    + " 평점: " + review.score
-                    + " 리뷰 내용: " + review.comment
-                    + " 작성일: " + review.date.format(formatter));
+        for (Review review : this.getReviews()) {
+            System.out.println(i +". " +
+                    "작성자: " + review.getWriter()
+                    + " 평점: " + review.getScore()
+                    + " 리뷰 내용: " + review.getComment()
+                    + " 작성일: " + review.getDate().format(FORMATTER));
+            i++;
         }
     }
 
@@ -89,7 +88,7 @@ public class Media {
         if (reviews.isEmpty()) return avgScore;
         float sum = 0;
         for (Review review : reviews) {
-            sum += review.score;
+            sum += review.getScore();
         }
         avgScore = sum / reviews.size();
         return avgScore;
@@ -105,6 +104,38 @@ public class Media {
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setAvgScore(float avgScore) {
+        this.avgScore = avgScore;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 

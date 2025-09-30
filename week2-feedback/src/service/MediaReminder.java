@@ -29,7 +29,7 @@ public class MediaReminder implements Runnable{
             reviewReminding();
             System.out.println("메뉴에서 번호를 다시 선택해주세요");
         } catch(InterruptedException e) {
-
+            Thread.currentThread().interrupt();
         }
     }
 
