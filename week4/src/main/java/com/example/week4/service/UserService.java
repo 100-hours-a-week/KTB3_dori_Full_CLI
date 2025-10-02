@@ -18,9 +18,9 @@ public class UserService {
         //isExistEmail(dto.getEmail());
         //isExistNickname(dto.getNickname());
 //        checkPassword(dto.getPassword(), dto.getPasswordCheck());
-
-        User savedUser = userRepository.save(dto);
-        return SignUpResponse.fromEntity(savedUser);
+        User user = UserSignUpDto.toEntity(dto);
+        User saveUser = userRepository.save(user);
+        return SignUpResponse.fromEntity(saveUser);
     }
 
 
