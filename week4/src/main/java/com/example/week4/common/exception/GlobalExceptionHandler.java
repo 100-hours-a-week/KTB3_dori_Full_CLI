@@ -1,5 +1,8 @@
 package com.example.week4.common.exception;
 
+import com.example.week4.common.exception.custom.BadRequestException;
+import com.example.week4.common.exception.custom.ResourceNotFoundException;
+import com.example.week4.common.exception.custom.UserDuplicatedException;
 import com.example.week4.common.response.APIResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,4 +19,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(APIResponse.fail(message));
     }
 
+    @ExceptionHandler(UserDuplicatedException.class)
+    public ResponseEntity<APIResponse<?>> handleUserDuplicatedException(UserDuplicatedException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(APIResponse.fail(message));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<APIResponse<?>> handleBadRequestException(BadRequestException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(APIResponse.fail(message));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<APIResponse<?>> handleResourceNotFoundException(ResourceNotFoundException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(APIResponse.fail(message));
+    }
 }

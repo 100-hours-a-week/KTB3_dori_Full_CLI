@@ -13,7 +13,6 @@ public class SignUpResponse {
 
     private String email;
 
-
     @Builder
     public SignUpResponse(String email) {
         this.email = email;

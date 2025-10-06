@@ -1,10 +1,13 @@
 package com.example.week4.domain;
 
+import jakarta.annotation.PostConstruct;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class Post {
     private Long viewCount;
     private List<Comment> comments = new ArrayList<>();
     private User user;
+    private String createdDate;
+    private String modifiedDate;
 
     @Builder
     public Post(String title, String content, Long viewCount, List<Comment> comments, User user) {
@@ -26,6 +31,14 @@ public class Post {
         this.viewCount = viewCount;
         this.comments = comments;
         this.user = user;
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        this.modifiedDate = createdDate;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
     public void generateId(Long id) {

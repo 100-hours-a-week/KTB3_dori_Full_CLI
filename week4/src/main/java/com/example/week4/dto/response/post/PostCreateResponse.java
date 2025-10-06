@@ -9,18 +9,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostResponse {
+public class PostCreateResponse {
     private Long id;
     private String title;
 
     @Builder
-    public PostResponse(Long id, String title) {
+    public PostCreateResponse(Long id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public static PostResponse fromEntity(Post post) {
-        return PostResponse.builder()
+    public static PostCreateResponse fromEntity(Post post) {
+        return PostCreateResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .build();

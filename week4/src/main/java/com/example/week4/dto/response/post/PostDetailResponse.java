@@ -19,19 +19,24 @@ public class PostDetailResponse {
     private String content;
     private String writer;
     private Long viewCount;
-//    private String createdAt;
+    private String createdDate;
+    private String modifiedDate;
+
 //    private List<CommentResponse> comments = new ArrayList<>();
     //heart
     // commentCount
 
     @Builder
-    public PostDetailResponse(Long postId, String title, String content, String writer, Long viewCount) {
+    public PostDetailResponse(Long postId, String title, String content, String writer, Long viewCount, String createdDate, String modifiedDate) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.viewCount = viewCount;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
+
 
     public static PostDetailResponse fromEntity(Post post) {
         return PostDetailResponse.builder()
@@ -40,6 +45,8 @@ public class PostDetailResponse {
                 .content(post.getContent())
                 .writer(post.getUser().getNickname())
                 .viewCount(post.getViewCount())
+                .createdDate(post.getCreatedDate())
+                .modifiedDate(post.getModifiedDate())
                 .build();
     }
 }
