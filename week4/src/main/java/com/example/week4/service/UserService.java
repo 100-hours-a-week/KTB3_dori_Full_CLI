@@ -3,13 +3,12 @@ package com.example.week4.service;
 import com.example.week4.common.exception.custom.BadRequestException;
 import com.example.week4.common.exception.custom.UserDuplicatedException;
 import com.example.week4.domain.User;
-import com.example.week4.dto.request.user.UserLoginDto;
 import com.example.week4.dto.request.user.UserSignUpDto;
-import com.example.week4.dto.response.user.LoginResponse;
 import com.example.week4.dto.response.user.SignUpResponse;
 import com.example.week4.dto.response.user.UserDetailResponse;
 import com.example.week4.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -18,19 +17,24 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-
-/*    public LoginResponse login(UserLoginDto dto) {
-        return LoginResponse
-    }*/
+    private final PasswordEncoder passwordEncoder;
 
     public SignUpResponse signUp(UserSignUpDto dto) {
         isExistEmail(dto.getEmail());
         isExistNickname(dto.getNickname());
-//        checkPassword(dto.getPassword(), dto.getPasswordCheck());
+        checkPassword(dto.getPassword(), dto.getPasswordCheck());
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        dto.setPassword(encodedPassword);
 
-        User user = UserSignUpDto.toEntity(dto);
+        User user = UserSignUpDto.ofEntity(dto);
         User saveUser = userRepository.save(user);
         return SignUpResponse.fromEntity(saveUser);
+    }
+
+    private void checkPassword(String password, String passwordCheck) {
+        if (!password.equals(passwordCheck)) {
+            throw new BadRequestException("비밀번호가 일치하지 않습니다");
+        }
     }
 
     public UserDetailResponse getUserInfo(Long id) {

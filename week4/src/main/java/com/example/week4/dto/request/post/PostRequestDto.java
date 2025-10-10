@@ -20,7 +20,7 @@ public class PostRequestDto {
         this.content = content;
     }
 
-    public static Post toEntity(PostRequestDto dto) {
+    public static Post ofEntity(PostRequestDto dto) {
         return Post.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())

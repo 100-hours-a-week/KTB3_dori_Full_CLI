@@ -18,5 +18,9 @@ public class CommentRepository {
         return comment;
     }
 
+    public void delete(Long id) {
+        commentMap.remove(id);
+    }
+
 
 }

@@ -25,10 +25,10 @@ public class Post {
     private String modifiedDate;
 
     @Builder
-    public Post(String title, String content, Long viewCount, List<Comment> comments, User user) {
+    public Post(String title, String content, List<Comment> comments, User user) {
         this.title = title;
         this.content = content;
-        this.viewCount = viewCount;
+        this.viewCount = 0L;
         this.comments = comments;
         this.user = user;
         this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
@@ -43,5 +43,14 @@ public class Post {
 
     public void generateId(Long id) {
         this.id = id;
+    }
+
+    // 사용자 등록
+    public void setMappingUser(User user) {
+        this.user = user;
+    }
+
+    public void upViewcount() {
+        this.viewCount++;
     }
 }

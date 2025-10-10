@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<APIResponse<SignUpResponse>> register(@Valid @RequestBody UserSignUpDto dto) {
         SignUpResponse registerMember = userService.signUp(dto);
         return ResponseEntity
@@ -25,7 +26,9 @@ public class UserController {
                 .body(APIResponse.success("회원가입 성공", registerMember));
     }
 
-    @GetMapping("/users/{id}")
+
+    // 테스트
+    @GetMapping("/{id}")
     public ResponseEntity<APIResponse<UserDetailResponse>> getUserInfo(@PathVariable Long id) {
         UserDetailResponse userInfo = userService.getUserInfo(id);
         return ResponseEntity
@@ -33,7 +36,7 @@ public class UserController {
                 .body(APIResponse.success("조회 성공", userInfo));
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -1,8 +1,6 @@
 package com.example.week4.common.exception;
 
-import com.example.week4.common.exception.custom.BadRequestException;
-import com.example.week4.common.exception.custom.ResourceNotFoundException;
-import com.example.week4.common.exception.custom.UserDuplicatedException;
+import com.example.week4.common.exception.custom.*;
 import com.example.week4.common.response.APIResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +33,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<APIResponse<?>> handleResourceNotFoundException(ResourceNotFoundException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(APIResponse.fail(message));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<APIResponse<?>> handleUnauthorizedException(UnauthorizedException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(APIResponse.fail(message));
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public ResponseEntity<APIResponse<?>> handleUnauthenticatedException(UnauthenticatedException e) {
+        String message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(APIResponse.fail(message));
     }
 }

@@ -10,19 +10,25 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostCreateResponse {
-    private Long id;
+    private Long postId;
     private String title;
+    private String writer;
+    private String createdDate;
 
     @Builder
-    public PostCreateResponse(Long id, String title) {
-        this.id = id;
+    public PostCreateResponse(Long postId, String title, String writer, String createdDate) {
+        this.postId = postId;
         this.title = title;
+        this.writer = writer;
+        this.createdDate = createdDate;
     }
 
     public static PostCreateResponse fromEntity(Post post) {
         return PostCreateResponse.builder()
-                .id(post.getId())
+                .postId(post.getId())
                 .title(post.getTitle())
+                .writer(post.getUser().getNickname())
+                .createdDate(post.getCreatedDate())
                 .build();
     }
 }

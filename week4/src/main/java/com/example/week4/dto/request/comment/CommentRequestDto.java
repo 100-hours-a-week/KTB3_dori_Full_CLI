@@ -18,7 +18,7 @@ public class CommentRequestDto {
         this.content = content;
     }
 
-    public static Comment toEntity(CommentRequestDto dto) {
+    public static Comment ofEntity(CommentRequestDto dto) {
         return Comment.builder()
                 .content(dto.getContent())
                 .build();

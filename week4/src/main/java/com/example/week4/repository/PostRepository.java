@@ -4,6 +4,7 @@ import com.example.week4.domain.Post;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,8 +28,13 @@ public class PostRepository {
         return Optional.ofNullable(postMap.get(id));
     }
 
+    public List<Post> findAll() {
+        return postMap.values().stream().toList();
+    }
 
-
-
+    public Post update(Long id, Post post) {
+        postMap.put(id, post);
+        return post;
+    }
 
 }

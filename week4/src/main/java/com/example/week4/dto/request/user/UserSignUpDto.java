@@ -25,7 +25,7 @@ public class UserSignUpDto {
     private String passwordCheck;
 
     @NotBlank(message = "닉네임을 입력해주세요")
-    @Size(max = 11, message = "닉네임은 최대 10자까지 가능합니다")
+    @Size(max = 10, message = "닉네임은 최대 10자까지 가능합니다")
     private String nickname;
 
     @Builder
@@ -37,7 +37,7 @@ public class UserSignUpDto {
     }
 
     @Builder
-    public static User toEntity(UserSignUpDto dto) {
+    public static User ofEntity(UserSignUpDto dto) {
         return User.builder()
                 .email(dto.getEmail())
                 .password(dto.getPassword())
