@@ -37,15 +37,21 @@ public class PostService {
     public PostDetailResponse getPost(Long id) {
         Post post = postRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 페이지입니다."));
         post.upViewcount();
 
         return PostDetailResponse.fromEntity(post);
     }
 
     public PostDetailResponse update(PostRequestDto dto, Long id, String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UnauthorizedException("권한이 없습니다. 로그인 후 이용해주세요"));
-        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 페이지입니다"));
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new UnauthorizedException("권한이 없습니다. 로그인 후 이용해주세요")
+        );
+
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("존재하지 않는 페이지입니다")
+        );
+
         if (!user.equals(post.getUser())) {
             throw new UnauthenticatedException("권한이 없습니다");
         }
@@ -56,8 +62,8 @@ public class PostService {
     }
 
     public List<PostListResponse> getAllPost() {
-        List<Post> postList = postRepository.findAll();
-        return postList.stream().map(PostListResponse::fromEntity).toList();
+        List<Post> posts = postRepository.findAll();
+        return posts.stream().map(PostListResponse::fromEntity).toList();
     }
 
     public void delete(Long id) {

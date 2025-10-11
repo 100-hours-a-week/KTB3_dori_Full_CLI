@@ -53,4 +53,9 @@ public class Post {
     public void upViewcount() {
         this.viewCount++;
     }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setMappingPost(this);
+    }
 }

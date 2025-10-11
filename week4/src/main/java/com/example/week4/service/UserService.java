@@ -1,7 +1,7 @@
 package com.example.week4.service;
 
 import com.example.week4.common.exception.custom.BadRequestException;
-import com.example.week4.common.exception.custom.UserDuplicatedException;
+import com.example.week4.common.exception.custom.DuplicatedException;
 import com.example.week4.domain.User;
 import com.example.week4.dto.request.user.UserSignUpDto;
 import com.example.week4.dto.response.user.SignUpResponse;
@@ -49,13 +49,13 @@ public class UserService {
 
     private void isExistEmail(String email) {
         if(userRepository.findByEmail(email).isPresent()) {
-            throw new UserDuplicatedException("중복된 이메일입니다");
+            throw new DuplicatedException("중복된 이메일입니다");
         }
     }
 
     private void isExistNickname(String nickname) {
         if (userRepository.findByNickname(nickname).isPresent()) {
-            throw new UserDuplicatedException("중복된 닉네임 입니다");
+            throw new DuplicatedException("중복된 닉네임 입니다");
         }
     }
 

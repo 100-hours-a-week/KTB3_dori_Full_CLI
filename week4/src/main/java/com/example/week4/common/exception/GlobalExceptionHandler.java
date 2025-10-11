@@ -17,8 +17,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(APIResponse.fail(message));
     }
 
-    @ExceptionHandler(UserDuplicatedException.class)
-    public ResponseEntity<APIResponse<?>> handleUserDuplicatedException(UserDuplicatedException e) {
+    @ExceptionHandler(DuplicatedException.class)
+    public ResponseEntity<APIResponse<?>> handleUserDuplicatedException(DuplicatedException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(APIResponse.fail(message));
     }
