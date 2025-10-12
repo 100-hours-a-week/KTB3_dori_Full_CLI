@@ -32,9 +32,4 @@ public class PostRepository {
         return postMap.values().stream().toList();
     }
 
-    public Post update(Long id, Post post) {
-        postMap.put(id, post);
-        return post;
-    }
-
 }

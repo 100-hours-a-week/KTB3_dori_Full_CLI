@@ -16,16 +16,25 @@ public class User {
     private String password;
     private String nickname;
     private String createdDate;
-    private String profile_image;
+    private String profileImage;
 
 
     @Builder
-    public User(String email, String password, String nickname, String profile_image) {
+    public User(String email, String password, String nickname, String profileImage) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.profile_image = profile_image;
+        this.profileImage = profileImage;
         this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    }
+
+    public void update(String nickname, String profileImage) {
+        this.nickname = nickname;
+        this.profileImage = profileImage;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
     }
 
     public void generateId(Long id) {

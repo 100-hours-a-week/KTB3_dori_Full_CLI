@@ -64,13 +64,12 @@ public class CommentService {
                 () -> new ResourceNotFoundException("존재하지 않는 페이지입니다")
         );
 
-        if (!user.equals(comment.getUser())) {
+        if (!user.getId().equals(comment.getUser().getId())) {
             throw new UnauthenticatedException("권한이 없습니다.");
         }
 
         comment.update(dto.getContent());
-        Comment update = commentRepository.update(id, comment);
-        return CommentResponse.fromEntity(update);
+        return CommentResponse.fromEntity(comment);
     }
 
 

@@ -52,13 +52,12 @@ public class PostService {
                 () -> new ResourceNotFoundException("존재하지 않는 페이지입니다")
         );
 
-        if (!user.equals(post.getUser())) {
+        if (!user.getId().equals(post.getUser().getId())) {
             throw new UnauthenticatedException("권한이 없습니다");
         }
         post.update(dto.getTitle(), dto.getContent());
-        Post update = postRepository.update(id, post);
 
-        return PostDetailResponse.fromEntity(update);
+        return PostDetailResponse.fromEntity(post);
     }
 
     public List<PostListResponse> getAllPost() {

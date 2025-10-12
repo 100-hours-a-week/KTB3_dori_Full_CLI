@@ -20,11 +20,6 @@ public class CommentRepository {
         return comment;
     }
 
-    public Comment update(Long id, Comment comment) {
-        commentMap.put(id, comment);
-        return comment;
-    }
-
     public List<Comment> findAllByPostId(Long postId) {
         return commentMap.values().stream()
                 .filter(comment -> comment.getPost().getId().equals(postId))

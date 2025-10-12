@@ -25,11 +25,10 @@ public class Post {
     private String modifiedDate;
 
     @Builder
-    public Post(String title, String content, List<Comment> comments, User user) {
+    public Post(String title, String content, User user) {
         this.title = title;
         this.content = content;
         this.viewCount = 0L;
-        this.comments = comments;
         this.user = user;
         this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         this.modifiedDate = createdDate;
@@ -57,5 +56,10 @@ public class Post {
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setMappingPost(this);
+    }
+
+    public void deleteComment(Comment comment) {
+        comments.remove(comment);
+        comment.setMappingPost(null);
     }
 }

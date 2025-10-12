@@ -28,12 +28,15 @@ public class UserSignUpDto {
     @Size(max = 10, message = "닉네임은 최대 10자까지 가능합니다")
     private String nickname;
 
+    private String profileImage;
+
     @Builder
-    public UserSignUpDto(String email, String password, String passwordCheck, String nickname) {
+    public UserSignUpDto(String email, String password, String passwordCheck, String nickname, String profileImage) {
         this.email = email;
         this.password = password;
         this.passwordCheck = passwordCheck;
         this.nickname = nickname;
+        this.profileImage = profileImage;
     }
 
     @Builder
@@ -42,6 +45,7 @@ public class UserSignUpDto {
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .nickname(dto.getNickname())
+                .profileImage(dto.profileImage)
                 .build();
     }
 }

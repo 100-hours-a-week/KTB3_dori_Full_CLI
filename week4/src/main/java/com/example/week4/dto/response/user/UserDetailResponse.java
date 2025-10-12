@@ -17,26 +17,23 @@ public class UserDetailResponse {
 
     private String email;
     private String nickname;
-    private String password;
     private String createdDate;
-    private String profile_image;
+    private String profileImage;
 
     @Builder
-    public UserDetailResponse(String email, String nickname, String password, String createdDate, String profile_image) {
+    public UserDetailResponse(String email, String nickname, String createdDate, String profileImage) {
         this.email = email;
         this.nickname = nickname;
-        this.password = password;
         this.createdDate = createdDate;
-        this.profile_image = profile_image;
+        this.profileImage = profileImage;
     }
 
     public static UserDetailResponse fromEntity(User user) {
         return UserDetailResponse.builder()
                 .email(user.getEmail())
                 .nickname(user.getNickname())
-                .password(user.getPassword())
                 .createdDate(user.getCreatedDate())
-                .profile_image(user.getProfile_image())
+                .profileImage(user.getProfileImage())
                 .build();
 
     }
