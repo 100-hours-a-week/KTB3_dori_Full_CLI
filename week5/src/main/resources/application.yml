@@ -1,0 +1,10 @@
+
+spring:
+  application:
+    name: week4
+
+jwt:
+  header: Authorization
+  prefix: "Bearer "
+  secret: "a2FrYW90ZWNoYm9vdGNhbXBmdWxsc3RhY2sza2FrYW90ZWNoYm9vdGNhbXBmdWxsc3RhY2sz"
+  token-expiration-time: 18000
