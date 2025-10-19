@@ -41,8 +41,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(APIResponse.fail(message));
     }
 
-    @ExceptionHandler(UnauthenticatedException.class)
-    public ResponseEntity<APIResponse<?>> handleUnauthenticatedException(UnauthenticatedException e) {
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<APIResponse<?>> handleUnauthenticatedException(ForbiddenException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(APIResponse.fail(message));
     }

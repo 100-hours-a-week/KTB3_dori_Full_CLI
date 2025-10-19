@@ -6,7 +6,7 @@ import com.example.week5.dto.request.user.UserSignUpDto;
 import com.example.week5.dto.request.user.UserUpdateDto;
 import com.example.week5.dto.response.user.SignUpResponse;
 import com.example.week5.dto.response.user.UserDetailResponse;
-import com.example.week5.service.UserService;
+import com.example.week5.service.user.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping
     public ResponseEntity<String> test() {

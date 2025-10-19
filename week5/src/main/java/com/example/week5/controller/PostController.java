@@ -5,7 +5,7 @@ import com.example.week5.dto.request.post.PostRequestDto;
 import com.example.week5.dto.response.post.PostCreateResponse;
 import com.example.week5.dto.response.post.PostDetailResponse;
 import com.example.week5.dto.response.post.PostListResponse;
-import com.example.week5.service.PostService;
+import com.example.week5.service.post.PostServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
-    private final PostService postService;
+    private final PostServiceImpl postService;
 
     @GetMapping
     public ResponseEntity<APIResponse<List<PostListResponse>>> getAllPost() {

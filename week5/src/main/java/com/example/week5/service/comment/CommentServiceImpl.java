@@ -1,35 +1,38 @@
-package com.example.week5.service;
+package com.example.week5.service.comment;
 
+import com.example.week5.common.AuthValidator;
 import com.example.week5.common.exception.custom.ResourceNotFoundException;
-import com.example.week5.common.exception.custom.UnauthenticatedException;
 import com.example.week5.common.exception.custom.UnauthorizedException;
 import com.example.week5.domain.Comment;
 import com.example.week5.domain.Post;
 import com.example.week5.domain.User;
 import com.example.week5.dto.request.comment.CommentRequestDto;
 import com.example.week5.dto.response.comment.CommentResponse;
-import com.example.week5.repository.CommentRepository;
-import com.example.week5.repository.PostRepository;
-import com.example.week5.repository.UserRepository;
+import com.example.week5.repository.comment.CommentRepository;
+import com.example.week5.repository.post.PostRepository;
+import com.example.week5.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.week5.common.exception.ErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
-public class CommentService {
+public class CommentServiceImpl implements CommentService{
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
+    @Override
     public CommentResponse createComment(CommentRequestDto dto, Long postId, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UnauthorizedException("권한이 없습니다. 로그인 후 이용해주세요")
+                () -> new UnauthorizedException(UNAUTHORIZED)
         );
         Post post = postRepository.findById(postId).orElseThrow(
-                () -> new ResourceNotFoundException("존재하지 않는 페이지입니다.")
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
 
         Comment comment = CommentRequestDto.ofEntity(dto);
@@ -41,38 +44,38 @@ public class CommentService {
         return CommentResponse.fromEntity(savedComment);
     }
 
+    @Override
     public List<CommentResponse> getCommentByPost(Long postId) {
 
         List<Comment> comments = commentRepository.findAllByPostId(postId);
         return comments.stream().map(CommentResponse::fromEntity).toList();
     }
 
+    @Override
     public CommentResponse getComment(Long id) {
 
         Comment comment = commentRepository.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("존재하지 않는 페이지입니다."));
+                -> new ResourceNotFoundException(RESOURCE_NOT_FOUND));
 
         return CommentResponse.fromEntity(comment);
     }
 
+    @Override
     public CommentResponse update(CommentRequestDto dto, Long id, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UnauthorizedException("권한이 없습니다. 로그인 후 이용해주세요")
+                () -> new UnauthorizedException(UNAUTHORIZED)
         );
 
         Comment comment = commentRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("존재하지 않는 페이지입니다")
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
-
-        if (!user.getId().equals(comment.getUser().getId())) {
-            throw new UnauthenticatedException("권한이 없습니다.");
-        }
+        AuthValidator.validate(user, comment.getUser());
 
         comment.update(dto.getContent());
         return CommentResponse.fromEntity(comment);
     }
 
-
+    @Override
     public void delete(Long id) {
         commentRepository.delete(id);
     }

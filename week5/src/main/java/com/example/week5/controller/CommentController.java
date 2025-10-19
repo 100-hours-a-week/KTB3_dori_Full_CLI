@@ -3,7 +3,7 @@ package com.example.week5.controller;
 import com.example.week5.common.response.APIResponse;
 import com.example.week5.dto.request.comment.CommentRequestDto;
 import com.example.week5.dto.response.comment.CommentResponse;
-import com.example.week5.service.CommentService;
+import com.example.week5.service.comment.CommentServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentServiceImpl commentService;
 
     @PostMapping
     public ResponseEntity<APIResponse<CommentResponse>> createComment(

@@ -3,7 +3,7 @@ package com.example.week5.controller;
 import com.example.week5.common.response.APIResponse;
 import com.example.week5.dto.request.user.UserLoginDto;
 import com.example.week5.dto.response.user.LoginResponse;
-import com.example.week5.service.AuthService;
+import com.example.week5.service.auth.AuthServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
+    private final AuthServiceImpl authService;
 
     @PostMapping
     public ResponseEntity<APIResponse<LoginResponse>> login(@Valid @RequestBody UserLoginDto dto) {
