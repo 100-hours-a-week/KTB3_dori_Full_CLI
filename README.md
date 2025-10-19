@@ -19,3 +19,8 @@
 
 - REST API 설계서를 통해 구현
 - 커뮤니티 기능 구현(1차)
+
+## 5주차 과제
+- Spring Doc + Swagger UI 적용
+- SOLID 원칙 적용
+- AOP 적용
