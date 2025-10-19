@@ -15,6 +15,7 @@
 ### 진행중
 
 - Comment, Post 양방향 관계 삭제 구현
+- UserService UserService 내부 검증 메서드 위치 (isExistEmail, isExistNickname, checkPassword) 수정
 
 ## 5주차 과제
 
