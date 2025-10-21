@@ -1,14 +1,42 @@
 package com.example.week5.common;
 
-import com.example.week5.common.exception.ErrorMessage;
+import com.example.week5.common.exception.custom.BadRequestException;
+import com.example.week5.common.exception.custom.DuplicatedException;
 import com.example.week5.common.exception.custom.ForbiddenException;
 import com.example.week5.domain.User;
+import com.example.week5.repository.user.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import static com.example.week5.common.exception.ErrorMessage.*;
+
+@RequiredArgsConstructor
+@Component
 public class AuthValidator {
+
+    private final UserRepository userRepository;
 
     public static void validate(User loginUser, User owner) throws ForbiddenException {
         if (!loginUser.getId().equals(owner.getId())) {
-            throw new ForbiddenException(ErrorMessage.FORBIDDEN);
+            throw new ForbiddenException(FORBIDDEN);
+        }
+    }
+
+    public void isExistEmail(String email) {
+        if(userRepository.findByEmail(email).isPresent()) {
+            throw new DuplicatedException(EMAIL_DUPLICATED);
+        }
+    }
+
+    public void isExistNickname(String nickname) {
+        if(userRepository.findByNickname(nickname).isPresent()) {
+            throw new DuplicatedException(EMAIL_DUPLICATED);
+        }
+    }
+
+    public void checkPassword(String password, String passwordCheck) {
+        if (!password.equals(passwordCheck)) {
+            throw new BadRequestException(PASSWORD_MISMATCH);
         }
     }
 }

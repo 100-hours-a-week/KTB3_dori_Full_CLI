@@ -77,6 +77,10 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public void delete(Long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
+        );
+        comment.getPost().getComments().remove(comment);
         commentRepository.delete(id);
     }
 }

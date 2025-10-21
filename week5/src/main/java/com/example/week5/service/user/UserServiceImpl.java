@@ -22,12 +22,13 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthValidator authValidator;
 
     @Override
     public SignUpResponse signUp(UserSignUpDto dto) {
-        isExistEmail(dto.getEmail());
-        isExistNickname(dto.getNickname());
-        checkPassword(dto.getPassword(), dto.getPasswordCheck());
+        authValidator.isExistEmail(dto.getEmail());
+        authValidator.isExistNickname(dto.getNickname());
+        authValidator.checkPassword(dto.getPassword(), dto.getPasswordCheck());
         User user = UserSignUpDto.ofEntity(dto);
 
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
@@ -73,30 +74,12 @@ public class UserServiceImpl implements UserService{
             throw new ForbiddenException(FORBIDDEN);
         }
 
-        checkPassword(dto.getPassword(), dto.getPasswordCheck());
+        authValidator.checkPassword(dto.getPassword(), dto.getPasswordCheck());
         target.changePassword(passwordEncoder.encode(dto.getPassword()));
     }
 
     @Override
     public void delete(Long id) {
         userRepository.delete(id);
-    }
-
-    private void isExistEmail(String email) {
-        if(userRepository.findByEmail(email).isPresent()) {
-            throw new DuplicatedException(EMAIL_DUPLICATED);
-        }
-    }
-
-    private void isExistNickname(String nickname) {
-        if (userRepository.findByNickname(nickname).isPresent()) {
-            throw new DuplicatedException(NICKNAME_DUPLICATED);
-        }
-    }
-
-    private void checkPassword(String password, String passwordCheck) {
-        if (!password.equals(passwordCheck)) {
-            throw new BadRequestException(PASSWORD_MISMATCH);
-        }
     }
 }

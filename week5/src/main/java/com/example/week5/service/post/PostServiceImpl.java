@@ -9,6 +9,7 @@ import com.example.week5.dto.request.post.PostRequestDto;
 import com.example.week5.dto.response.post.PostCreateResponse;
 import com.example.week5.dto.response.post.PostDetailResponse;
 import com.example.week5.dto.response.post.PostListResponse;
+import com.example.week5.repository.comment.CommentRepository;
 import com.example.week5.repository.post.PostRepository;
 import com.example.week5.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public PostCreateResponse createPost(PostRequestDto dto, String email) {
@@ -71,6 +73,11 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void delete(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
+        );
+        post.getComments().forEach((comment) -> commentRepository.delete(comment.getId()));
+        post.getComments().clear();
         postRepository.delete(id);
     }
 }
