@@ -57,8 +57,8 @@ public class Post {
         comment.setMappingPost(this);
     }
 
-    public void deleteComment(Comment comment) {
+/*    public void deleteComment(Comment comment) {
         comments.remove(comment);
         comment.setMappingPost(null);
-    }
+    }*/
 }
