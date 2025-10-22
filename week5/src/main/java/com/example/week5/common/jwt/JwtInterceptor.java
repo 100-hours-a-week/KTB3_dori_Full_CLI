@@ -1,6 +1,5 @@
 package com.example.week5.common.jwt;
 
-import com.example.week5.common.exception.ErrorMessage;
 import com.example.week5.common.exception.custom.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,7 +26,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String token = header.substring(jwtUtil.getPrefix().length());
 
         if (!jwtUtil.validateToken(token)) {
-            throw new UnauthorizedException(UNAUTHORIZED);
+            throw new UnauthorizedException(TOKEN_EXPIRE);
         }
         String email = jwtUtil.getEmail(token);
         request.setAttribute("email", email);

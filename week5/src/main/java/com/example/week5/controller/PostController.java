@@ -5,6 +5,7 @@ import com.example.week5.dto.request.post.PostRequestDto;
 import com.example.week5.dto.response.post.PostCreateResponse;
 import com.example.week5.dto.response.post.PostDetailResponse;
 import com.example.week5.dto.response.post.PostListResponse;
+import com.example.week5.service.like.LikeService;
 import com.example.week5.service.post.PostServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PostController {
 
     private final PostServiceImpl postService;
+    private final LikeService likeService;
 
     @GetMapping
     public ResponseEntity<APIResponse<List<PostListResponse>>> getAllPost() {
@@ -45,6 +47,7 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         postService.delete(id);
+        likeService.clearLikes(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

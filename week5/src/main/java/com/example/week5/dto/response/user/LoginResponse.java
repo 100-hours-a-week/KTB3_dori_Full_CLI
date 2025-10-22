@@ -4,24 +4,26 @@ import com.example.week5.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
 public class LoginResponse {
-    private String token;
+    private String accessToken;
+    private String refreshToken;
     private String email;
 
     @Builder
-    public LoginResponse(String token, String email) {
-        this.token = token;
+    public LoginResponse(String accessToken, String refreshToken, String email) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
         this.email = email;
     }
 
-    public static LoginResponse fromEntity(User user, String token) {
+    public static LoginResponse fromEntity(User user, String accessToken, String refreshToken) {
         return LoginResponse
                 .builder()
-                .token(token)
+                .refreshToken(refreshToken)
+                .accessToken(accessToken)
                 .email(user.getEmail())
                 .build();
     }

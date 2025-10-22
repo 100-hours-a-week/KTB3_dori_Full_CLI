@@ -56,7 +56,7 @@ public class UserController {
 
     @PatchMapping("/{id}/pwd")
     public ResponseEntity<APIResponse<Void>> changePassword(@PathVariable Long id,
-                                                            @RequestBody ChangePasswordDto dto,
+                                                            @Valid @RequestBody ChangePasswordDto dto,
                                                             HttpServletRequest request) {
 
         String email = (String) request.getAttribute("email");

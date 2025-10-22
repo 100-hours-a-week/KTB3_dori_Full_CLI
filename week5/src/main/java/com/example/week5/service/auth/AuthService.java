@@ -7,4 +7,8 @@ import org.springframework.stereotype.Service;
 public interface AuthService {
 
     LoginResponse login(String email, String password);
+
+    LoginResponse validateRefreshToken(String token);
+
+    void logout(String token);
 }

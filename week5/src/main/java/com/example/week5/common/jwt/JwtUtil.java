@@ -19,17 +19,20 @@ import java.util.Date;
 public class JwtUtil {
     private final Key key;
     private final long expiration;
+    private final long refreshExpiration;
     private final String prefix;
     private final String header;
 
     public JwtUtil(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.token-expiration-time}") long expiration,
+            @Value("${jwt.refresh-expiration-time}") long refreshExpiration,
             @Value("${jwt.prefix}") String prefix,
             @Value("${jwt.header}") String header
     ) {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         this.expiration = expiration * 1000;
+        this.refreshExpiration = refreshExpiration;
         this.prefix = prefix;
         this.header = header;
     }
@@ -37,6 +40,19 @@ public class JwtUtil {
     public String createAccessToken(User user) {
         Date now = new Date();
         Date expire = new Date(now.getTime() + expiration);
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("email", user.getEmail())
+                .setIssuedAt(now)
+                .setExpiration(expire)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String createRefreshToken(User user) {
+        Date now = new Date();
+        Date expire = new Date(now.getTime() + refreshExpiration);
 
         return Jwts.builder()
                 .setSubject(user.getEmail())

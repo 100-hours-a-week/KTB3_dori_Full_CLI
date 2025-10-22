@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,4 +22,14 @@ public class AuthController {
         LoginResponse response = authService.login(dto.getEmail(), dto.getPassword());
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("로그인 성공", response));
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<APIResponse<LoginResponse>> validateRefreshToken(@RequestParam String token) {
+        LoginResponse response = authService.validateRefreshToken(token);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("토큰 재발급 성공", response));
+    }
+
+/*
+    @PostMapping("/logout")
+*/
 }

@@ -1,10 +1,16 @@
-
 spring:
   application:
     name: week4
+  cache:
+    type: simple
+
+logging:
+  level:
+    org.springframework.cache: TRACE
 
 jwt:
   header: Authorization
   prefix: "Bearer "
   secret: "a2FrYW90ZWNoYm9vdGNhbXBmdWxsc3RhY2sza2FrYW90ZWNoYm9vdGNhbXBmdWxsc3RhY2sz"
   token-expiration-time: 18000
+  refresh-expiration-time: 604800
