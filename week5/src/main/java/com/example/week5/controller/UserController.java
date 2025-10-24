@@ -6,7 +6,8 @@ import com.example.week5.dto.request.user.UserSignUpDto;
 import com.example.week5.dto.request.user.UserUpdateDto;
 import com.example.week5.dto.response.user.SignUpResponse;
 import com.example.week5.dto.response.user.UserDetailResponse;
-import com.example.week5.service.user.UserServiceImpl;
+import com.example.week5.service.user.UserCommandService;
+import com.example.week5.service.user.UserQueryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserServiceImpl userService;
-
-    @GetMapping
-    public ResponseEntity<String> test() {
-        return ResponseEntity.status(HttpStatus.OK).body("성공");
-    }
-
+    private final UserCommandService userCommandService;
+    private final UserQueryService userQueryService;
 
     @PostMapping
-
     public ResponseEntity<APIResponse<SignUpResponse>> register(@Valid @RequestBody UserSignUpDto dto) {
-        SignUpResponse registerMember = userService.signUp(dto);
+        SignUpResponse registerMember = userCommandService.signUp(dto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(APIResponse.success("회원가입 성공", registerMember));
@@ -38,7 +33,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<APIResponse<UserDetailResponse>> getUserInfo(@PathVariable Long id) {
-        UserDetailResponse userInfo = userService.getUserInfo(id);
+        UserDetailResponse userInfo = userQueryService.getUserInfo(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(APIResponse.success("조회 성공", userInfo));
@@ -49,7 +44,7 @@ public class UserController {
                                                                       @RequestBody UserUpdateDto dto,
                                                                       HttpServletRequest request) {
         String email = (String) request.getAttribute("email");
-        UserDetailResponse user = userService.updateUser(dto, id, email);
+        UserDetailResponse user = userCommandService.updateUser(dto, id, email);
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("사용자 정보 업데이트 성공", user));
     }
@@ -60,13 +55,13 @@ public class UserController {
                                                             HttpServletRequest request) {
 
         String email = (String) request.getAttribute("email");
-        userService.changePassword(dto, id, email);
+        userCommandService.changePassword(dto, id, email);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        userService.delete(id);
+        userCommandService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -25,6 +25,7 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final AuthValidator authValidator;
 
     @Override
     public CommentResponse createComment(CommentRequestDto dto, Long postId, String email) {
@@ -69,7 +70,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
-        AuthValidator.validate(user, comment.getUser());
+        authValidator.validate(user, comment.getUser());
 
         comment.update(dto.getContent());
         return CommentResponse.fromEntity(comment);
@@ -80,7 +81,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
-        comment.getPost().getComments().remove(comment);
+        comment.getPost().deleteComment(comment);
         commentRepository.delete(id);
     }
 }

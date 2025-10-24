@@ -1,14 +1,19 @@
 package com.example.week5.controller;
 
+import com.example.week5.common.exception.ErrorMessage;
+import com.example.week5.common.exception.custom.UnauthorizedException;
 import com.example.week5.common.response.APIResponse;
 import com.example.week5.dto.request.user.UserLoginDto;
 import com.example.week5.dto.response.user.LoginResponse;
 import com.example.week5.service.auth.AuthServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.week5.common.exception.ErrorMessage.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,7 +34,14 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("토큰 재발급 성공", response));
     }
 
-/*
-    @PostMapping("/logout")
-*/
+    @PostMapping("/session")
+    public ResponseEntity<APIResponse<Void>> logout(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new UnauthorizedException(UNAUTHORIZED);
+        }
+        String[] token = header.split(" ");
+        authService.logout(token[1]);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

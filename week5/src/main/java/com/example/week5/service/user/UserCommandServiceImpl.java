@@ -18,7 +18,7 @@ import static com.example.week5.common.exception.ErrorMessage.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserCommandServiceImpl implements UserCommandService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService{
                 () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
 
-        AuthValidator.validate(user, target);
+        authValidator.validate(user, target);
 
         target.update(dto.getNickname(), dto.getProfileImage());
 

@@ -6,6 +6,7 @@ import com.example.week5.common.exception.custom.ForbiddenException;
 import com.example.week5.domain.User;
 import com.example.week5.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import static com.example.week5.common.exception.ErrorMessage.*;
@@ -15,8 +16,9 @@ import static com.example.week5.common.exception.ErrorMessage.*;
 public class AuthValidator {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public static void validate(User loginUser, User owner) throws ForbiddenException {
+    public void validate(User loginUser, User owner) throws ForbiddenException {
         if (!loginUser.getId().equals(owner.getId())) {
             throw new ForbiddenException(FORBIDDEN);
         }
@@ -30,7 +32,7 @@ public class AuthValidator {
 
     public void isExistNickname(String nickname) {
         if(userRepository.findByNickname(nickname).isPresent()) {
-            throw new DuplicatedException(EMAIL_DUPLICATED);
+            throw new DuplicatedException(NICKNAME_DUPLICATED);
         }
     }
 

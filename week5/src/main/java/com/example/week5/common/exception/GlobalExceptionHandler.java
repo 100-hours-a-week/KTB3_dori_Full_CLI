@@ -17,7 +17,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(APIResponse.fail(message));
     }
 
-    @ExceptionHandler(DuplicatedException.class)
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<APIResponse<?>> handleException(CustomException e) {
+        ErrorMessage errorMessage = e.getErrorMessage();
+        return ResponseEntity.status(errorMessage.getStatus()).body(APIResponse.fail(errorMessage.getMessage()));
+    }
+
+
+   /* @ExceptionHandler(DuplicatedException.class)
     public ResponseEntity<APIResponse<?>> handleUserDuplicatedException(DuplicatedException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(APIResponse.fail(message));
@@ -45,5 +52,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<APIResponse<?>> handleUnauthenticatedException(ForbiddenException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(APIResponse.fail(message));
-    }
+    }*/
 }

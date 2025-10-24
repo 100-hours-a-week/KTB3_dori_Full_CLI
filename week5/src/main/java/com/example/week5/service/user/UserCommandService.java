@@ -6,7 +6,7 @@ import com.example.week5.dto.request.user.UserUpdateDto;
 import com.example.week5.dto.response.user.SignUpResponse;
 import com.example.week5.dto.response.user.UserDetailResponse;
 
-public interface UserService {
+public interface UserCommandService {
 
     SignUpResponse signUp(UserSignUpDto dto);
 

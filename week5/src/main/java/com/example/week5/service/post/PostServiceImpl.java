@@ -26,6 +26,7 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final AuthValidator authValidator;
 
     @Override
     public PostCreateResponse createPost(PostRequestDto dto, String email) {
@@ -58,7 +59,7 @@ public class PostServiceImpl implements PostService{
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
-        AuthValidator.validate(user, post.getUser());
+        authValidator.validate(user, post.getUser());
 
         post.update(dto.getTitle(), dto.getContent());
 
