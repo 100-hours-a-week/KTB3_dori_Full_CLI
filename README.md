@@ -24,3 +24,12 @@
 - Spring Doc + Swagger UI 적용
 - SOLID 원칙 적용
 - AOP 적용
+
+## 6주차 과제
+- DB 설계 및 erd-cloud로 erd 작성
+
+## 7주차 과제
+- Spring - Database 연결(MySQL)
+- Repository 인메모리 기반 -> JPA + DB 기반으로 변경
+
+
