@@ -1,10 +1,10 @@
-package com.example.week5.controller;
+package com.example.week7.controller;
 
-import com.example.week5.common.exception.custom.UnauthorizedException;
-import com.example.week5.common.response.APIResponse;
-import com.example.week5.dto.request.user.UserLoginDto;
-import com.example.week5.dto.response.user.LoginResponse;
-import com.example.week5.service.auth.AuthServiceImpl;
+import com.example.week7.common.exception.custom.UnauthorizedException;
+import com.example.week7.common.response.APIResponse;
+import com.example.week7.dto.request.user.UserLoginDto;
+import com.example.week7.dto.response.user.LoginResponse;
+import com.example.week7.service.auth.AuthServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.week5.common.exception.ErrorMessage.*;
+import static com.example.week7.common.exception.ErrorMessage.*;
 
 @RestController
 @RequestMapping("/auth")
