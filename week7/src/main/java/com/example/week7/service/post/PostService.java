@@ -1,5 +1,6 @@
 package com.example.week7.service.post;
 
+import com.example.week7.domain.User;
 import com.example.week7.dto.request.post.PostRequestDto;
 import com.example.week7.dto.response.post.PostCreateResponse;
 import com.example.week7.dto.response.post.PostDetailResponse;
@@ -17,7 +18,10 @@ public interface PostService {
     PostDetailResponse getPost(Long id);
 
     PostDetailResponse update(PostRequestDto dto, Long id, String email);
+
     Page<PostListResponse> getAllPost(Pageable pageable);
+
+    Page<PostListResponse> getAllPostByUser(String email, Pageable pageable);
 
     void delete(Long id);
 }

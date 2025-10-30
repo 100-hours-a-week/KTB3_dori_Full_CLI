@@ -1,5 +1,6 @@
 package com.example.week7.dto.response.post;
 
+import com.example.week7.common.util.DateTimeUtils;
 import com.example.week7.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,9 +18,6 @@ public class PostDetailResponse {
     private String createdDate;
     private String modifiedDate;
 
-//    private List<CommentResponse> comments = new ArrayList<>();
-    //heart
-    // commentCount
 
     @Builder
     public PostDetailResponse(Long postId, String title, String content, String writer, Long viewCount, String createdDate, String modifiedDate) {
@@ -40,8 +38,8 @@ public class PostDetailResponse {
                 .content(post.getContent())
                 .writer(post.getUser().getNickname())
                 .viewCount(post.getViewCount())
-                .createdDate(post.getCreatedDate())
-                .modifiedDate(post.getModifiedDate())
+                .createdDate(DateTimeUtils.format(post.getCreatedDate()))
+                .modifiedDate(DateTimeUtils.format(post.getModifiedDate()))
                 .build();
     }
 }

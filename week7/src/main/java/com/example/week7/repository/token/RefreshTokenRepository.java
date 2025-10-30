@@ -1,15 +1,12 @@
 package com.example.week7.repository.token;
 
-import org.springframework.stereotype.Repository;
+import com.example.week7.domain.RefreshToken;
+import com.example.week7.domain.User;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-@Repository
-public interface RefreshTokenRepository {
+public interface RefreshTokenRepository extends CrudRepository<RefreshToken, Long> {
 
-    void save(String email, String token);
-
-    Optional<String> findTokenByEmail(String email);
-
-    void delete(String email);
+    Optional<RefreshToken> findByUser(User user);
 }

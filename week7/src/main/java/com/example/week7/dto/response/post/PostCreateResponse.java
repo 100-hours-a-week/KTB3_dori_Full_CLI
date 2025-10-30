@@ -1,5 +1,6 @@
 package com.example.week7.dto.response.post;
 
+import com.example.week7.common.util.DateTimeUtils;
 import com.example.week7.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class PostCreateResponse {
                 .postId(post.getId())
                 .title(post.getTitle())
                 .writer(post.getUser().getNickname())
-                .createdDate(post.getCreatedDate())
+                .createdDate(DateTimeUtils.format(post.getCreatedDate()))
                 .build();
     }
 }

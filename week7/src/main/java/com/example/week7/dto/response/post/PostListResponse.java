@@ -1,5 +1,6 @@
 package com.example.week7.dto.response.post;
 
+import com.example.week7.common.util.DateTimeUtils;
 import com.example.week7.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,17 +15,17 @@ public class PostListResponse {
     private String content;
     private String writer;
     private Long viewCount;
-//    private String createdAt;
-//    commentCount
-//    heart
+    private String createdDate;
+
 
     @Builder
-    public PostListResponse(Long postId, String title, String content, String writer, Long viewCount) {
+    public PostListResponse(Long postId, String title, String content, String writer, Long viewCount, String createdDate) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.viewCount = viewCount;
+        this.createdDate = createdDate;
     }
 
 
@@ -35,6 +36,7 @@ public class PostListResponse {
                 .content(post.getContent())
                 .writer(post.getUser().getNickname())
                 .viewCount(post.getViewCount())
+                .createdDate(DateTimeUtils.format(post.getCreatedDate()))
                 .build();
     }
 }

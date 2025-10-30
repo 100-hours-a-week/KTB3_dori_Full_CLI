@@ -1,5 +1,6 @@
 package com.example.week7.dto.response.comment;
 
+import com.example.week7.common.util.DateTimeUtils;
 import com.example.week7.domain.Comment;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +30,8 @@ public class CommentResponse {
                 .commentId(comment.getId())
                 .content(comment.getContent())
                 .writer(comment.getUser().getNickname())
-                .createdDate(comment.getCreatedDate())
-                .modifiedDate(comment.getModifiedDate())
+                .createdDate(DateTimeUtils.format(comment.getCreatedDate()))
+                .modifiedDate(DateTimeUtils.format(comment.getModifiedDate()))
                 .build();
     }
 }

@@ -2,19 +2,24 @@ package com.example.week7.service.auth;
 
 import com.example.week7.common.exception.custom.UnauthorizedException;
 import com.example.week7.common.jwt.JwtUtil;
+import com.example.week7.domain.RefreshToken;
 import com.example.week7.domain.User;
 import com.example.week7.dto.response.user.LoginResponse;
 import com.example.week7.repository.token.RefreshTokenRepository;
 import com.example.week7.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 import static com.example.week7.common.exception.ErrorMessage.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional
 public class AuthServiceImpl implements AuthService {
 
@@ -25,16 +30,37 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(String email, String password) {
+
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new UnauthorizedException(INVALID_CREDENTIALS)
         );
+
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new UnauthorizedException(INVALID_CREDENTIALS);
         }
+
         String accessToken = jwtUtil.createAccessToken(user);
+
         String refreshToken = jwtUtil.createRefreshToken(user);
-        refreshTokenRepository.save(user.getEmail(), refreshToken);
+
+        long refreshExpiration = jwtUtil.getRefreshExpiration();
+
+        RefreshToken exist = refreshTokenRepository.findByUser(user).orElse(null);
+        LocalDateTime expirationDate = LocalDateTime.now().plusSeconds(refreshExpiration);
+
+        if (exist != null) {
+            exist.updateToken(refreshToken, expirationDate);
+        } else {
+            RefreshToken token = RefreshToken.builder()
+                    .refreshToken(refreshToken)
+                    .user(user)
+                    .expirationDate(expirationDate)
+                    .build();
+
+            refreshTokenRepository.save(token);
+        }
         return LoginResponse.fromEntity(user, accessToken, refreshToken);
+
     }
 
     @Override
@@ -45,25 +71,22 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String email = jwtUtil.getEmail(token);
-        if (email == null) {
-            throw new UnauthorizedException(UNAUTHORIZED);
-        }
-
-        String refreshToken = refreshTokenRepository.findTokenByEmail(email).orElseThrow(
-                () ->  new UnauthorizedException(TOKEN_EXPIRE)
-        );
-
-
-        if (!refreshToken.equals(token)) {
-            throw new UnauthorizedException(UNAUTHORIZED);
-        }
 
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new UnauthorizedException(UNAUTHORIZED)
         );
 
+        RefreshToken refreshToken = refreshTokenRepository.findByUser(user).orElseThrow(
+                () -> new UnauthorizedException(TOKEN_EXPIRE)
+        );
+
+
+        if (!refreshToken.getRefreshToken().equals(token)) {
+            throw new UnauthorizedException(UNAUTHORIZED);
+        }
+
         String accessToken = jwtUtil.createAccessToken(user);
-        return LoginResponse.fromEntity(user, accessToken, refreshToken);
+        return LoginResponse.fromEntity(user, accessToken, refreshToken.getRefreshToken());
     }
 
     @Override
@@ -74,6 +97,15 @@ public class AuthServiceImpl implements AuthService {
             throw new UnauthorizedException(UNAUTHORIZED);
         }
 
-        refreshTokenRepository.delete(email);
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new UnauthorizedException(UNAUTHORIZED)
+        );
+
+        RefreshToken refreshToken = refreshTokenRepository.findByUser(user).orElseThrow(
+                () -> new UnauthorizedException(TOKEN_EXPIRE)
+        );
+
+
+        refreshTokenRepository.delete(refreshToken);
     }
 }

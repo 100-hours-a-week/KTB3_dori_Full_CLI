@@ -29,7 +29,6 @@ public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final CommentRepository commentRepository;
     private final AuthValidator authValidator;
 
     @Override
@@ -47,7 +46,7 @@ public class PostServiceImpl implements PostService{
     @Override
     public PostDetailResponse getPost(Long id) {
         Post post = postRepository
-                .findById(id)
+                .findByIdWithUser(id)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND));
         post.upViewcount();
 
@@ -73,7 +72,18 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public Page<PostListResponse> getAllPost(Pageable pageable) {
-        Page<Post> posts = postRepository.findAll(pageable);
+        Page<Post> posts = postRepository.findAllWithUser(pageable);
+        return posts.map(PostListResponse::fromEntity);
+    }
+
+    @Override
+    public Page<PostListResponse> getAllPostByUser(String email, Pageable pageable) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new UnauthorizedException(UNAUTHORIZED)
+        );
+
+        Page<Post> posts = postRepository.findAllByUser(user, pageable);
+
         return posts.map(PostListResponse::fromEntity);
     }
 

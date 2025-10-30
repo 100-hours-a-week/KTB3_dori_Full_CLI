@@ -52,14 +52,24 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Page<CommentResponse> getCommentByPost(Long postId, Pageable pageable) {
 
-        Page<Comment> comments = commentRepository.findAllByPostId(postId, pageable);
+        Page<Comment> comments = commentRepository.findAllByPostIdWithUser(postId, pageable);
+        return comments.map(CommentResponse::fromEntity);
+    }
+
+    @Override
+    public Page<CommentResponse> getCommentByUser(String email, Pageable pageable) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new UnauthorizedException(UNAUTHORIZED)
+        );
+
+        Page<Comment> comments = commentRepository.findAllByUser(user, pageable);
         return comments.map(CommentResponse::fromEntity);
     }
 
     @Override
     public CommentResponse getComment(Long id) {
 
-        Comment comment = commentRepository.findById(id).orElseThrow(()
+        Comment comment = commentRepository.findByIdWithUser(id).orElseThrow(()
                 -> new ResourceNotFoundException(RESOURCE_NOT_FOUND));
 
         return CommentResponse.fromEntity(comment);
@@ -71,7 +81,7 @@ public class CommentServiceImpl implements CommentService{
                 () -> new UnauthorizedException(UNAUTHORIZED)
         );
 
-        Comment comment = commentRepository.findById(id).orElseThrow(
+        Comment comment = commentRepository.findByIdWithUser(id).orElseThrow(
                 () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
         );
         authValidator.validate(user, comment.getUser());

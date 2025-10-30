@@ -1,5 +1,6 @@
 package com.example.week7.domain;
 
+import com.example.week7.common.BasicTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,12 +12,14 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BasicTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Lob
+    @Column(nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,26 +30,16 @@ public class Comment {
     @JoinColumn(name = "POST_ID")
     private Post post;
 
-    private String createdDate;
-    private String modifiedDate;
-
 
     @Builder
     public Comment(String content, User user, Post post) {
         this.content = content;
         this.user = user;
         this.post = post;
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-        this.modifiedDate = createdDate;
-    }
-
-    public void generateId(Long id) {
-        this.id = id;
     }
 
     public void update(String content) {
         this.content = content;
-        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
     public void setMappingPost(Post post) {

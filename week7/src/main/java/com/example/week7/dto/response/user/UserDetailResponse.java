@@ -1,5 +1,6 @@
 package com.example.week7.dto.response.user;
 
+import com.example.week7.common.util.DateTimeUtils;
 import com.example.week7.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class UserDetailResponse {
         return UserDetailResponse.builder()
                 .email(user.getEmail())
                 .nickname(user.getNickname())
-                .createdDate(user.getCreatedDate())
+                .createdDate(DateTimeUtils.format(user.getCreatedDate()))
                 .profileImage(user.getProfileImage())
                 .build();
 
