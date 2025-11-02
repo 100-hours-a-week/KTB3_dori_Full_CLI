@@ -5,8 +5,8 @@ import com.example.week7.dto.request.post.PostRequestDto;
 import com.example.week7.dto.response.post.PostCreateResponse;
 import com.example.week7.dto.response.post.PostDetailResponse;
 import com.example.week7.dto.response.post.PostListResponse;
-import com.example.week7.service.like.LikeService;
-import com.example.week7.service.post.PostServiceImpl;
+import com.example.week7.service.post.PostService;
+import com.example.week7.service.post.PostViewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +25,8 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
-    private final PostServiceImpl postService;
-    private final LikeService likeService;
+    private final PostService postService;
+    private final PostViewService postViewService;
 
     @GetMapping
     public ResponseEntity<APIResponse<Page<PostListResponse>>> getAllPost(
@@ -50,17 +50,16 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("게시글 수정 성공", post));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        postService.delete(id);
-        likeService.clearLikes(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
     @PostMapping
     public ResponseEntity<APIResponse<PostCreateResponse>> createPost(@Valid @RequestBody PostRequestDto dto, HttpServletRequest request) {
         String email = (String) request.getAttribute("email");
         PostCreateResponse post = postService.createPost(dto, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success("게시글 작성 성공", post));
+    }
+
+    @GetMapping("/{id}/viewcounts")
+    public ResponseEntity<APIResponse<Long>> getViewCount(@PathVariable Long id) {
+        Long viewCount = postViewService.getViewCount(id);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("조회수 조회 성공", viewCount));
     }
 }

@@ -25,7 +25,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         String token = header.substring(jwtUtil.getPrefix().length());
 
-        if (!jwtUtil.validateToken(token)) {
+        if (jwtUtil.isValidateToken(token)) {
             throw new UnauthorizedException(TOKEN_EXPIRE);
         }
         String email = jwtUtil.getEmail(token);

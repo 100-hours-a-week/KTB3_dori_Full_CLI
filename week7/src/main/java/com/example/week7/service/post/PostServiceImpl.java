@@ -30,6 +30,7 @@ public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final AuthValidator authValidator;
+    private final PostViewService postViewService;
 
     @Override
     public PostCreateResponse createPost(PostRequestDto dto, String email) {
@@ -48,8 +49,7 @@ public class PostServiceImpl implements PostService{
         Post post = postRepository
                 .findByIdWithUser(id)
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND));
-        post.upViewcount();
-
+        postViewService.increaseViewcount(id);
         return PostDetailResponse.fromEntity(post);
     }
 

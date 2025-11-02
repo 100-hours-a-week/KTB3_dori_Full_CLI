@@ -2,6 +2,7 @@ package com.example.week7.repository.comment;
 
 import com.example.week7.domain.Comment;
 import com.example.week7.domain.User;
+import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

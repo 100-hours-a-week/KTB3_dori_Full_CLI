@@ -52,13 +52,13 @@ public class Post extends BasicTimeEntity {
         this.user = user;
     }
 
-    public void upViewcount() {
-        this.viewCount++;
-    }
-
 
     public void deleteComment(Comment comment) {
         comments.remove(comment);
         comment.setMappingPost(null);
+    }
+
+    public void upViewcount(Long viewCount) {
+        this.viewCount = viewCount;
     }
 }

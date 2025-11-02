@@ -17,13 +17,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/users",                 // 회원가입
-                        "/auth",                  // 로그인
-                        "/error",                 // 스프링 기본 에러 핸들러
-                        "/swagger-ui.html",       // Swagger 메인 HTML
-                        "/swagger-ui/**",         // Swagger 정적 리소스
-                        "/v3/api-docs/**",        // Swagger OpenAPI JSON
-                        "/webjars/**"             // Swagger 의존성 내부 리소스
+                        "/users",
+                        "/auth",
+                        "/error",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/webjars/**"
                 );
     }
 }

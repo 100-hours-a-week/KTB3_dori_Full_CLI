@@ -10,11 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CacheConfig {
 
-
     @Bean
     public CacheManager cacheManager() {
-        // "likes"라는 이름의 캐시를 사용할 수 있게 등록
-        return new ConcurrentMapCacheManager("likes");
+        return new ConcurrentMapCacheManager( "viewcount");
     }
 
 }
