@@ -18,8 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts")
@@ -55,6 +53,12 @@ public class PostController {
         String email = (String) request.getAttribute("email");
         PostCreateResponse post = postService.createPost(dto, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success("게시글 작성 성공", post));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse<Void>> deletePost(@PathVariable Long id) {
+        postService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}/viewcounts")
