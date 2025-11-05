@@ -7,6 +7,7 @@ import com.example.week7.dto.response.post.PostDetailResponse;
 import com.example.week7.dto.response.post.PostListResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public interface PostService {
     Page<PostListResponse> getAllPost(Pageable pageable);
 
     Page<PostListResponse> getAllPostByUser(String email, Pageable pageable);
+
+    Slice<PostListResponse> getAllPostSlice(Pageable pageable);
 
     void delete(Long id);
 }

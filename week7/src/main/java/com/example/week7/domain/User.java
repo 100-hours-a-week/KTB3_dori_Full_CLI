@@ -30,7 +30,7 @@ public class User extends BasicTimeEntity {
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String profileImage;
 
     @Enumerated(EnumType.STRING)

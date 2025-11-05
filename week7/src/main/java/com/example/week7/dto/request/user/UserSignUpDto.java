@@ -18,10 +18,10 @@ public class UserSignUpDto {
     private String email;
 
     @NotBlank(message = "비밀번호를 입력해주세요")
-/*    @Pattern(
+    @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>,.?/]).{8,20}$",
             message = "비밀번호는 8자 이상, 20자 이하이며 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다."
-    )*/ //테스트 하기 불편해서 일단 주석처리.. 나중에 풀기
+    )
     private String password;
 
     @NotBlank(message = "비밀번호를 한번 더 입력해주세요")

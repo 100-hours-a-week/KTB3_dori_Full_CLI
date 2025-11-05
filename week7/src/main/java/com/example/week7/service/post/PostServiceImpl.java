@@ -15,6 +15,7 @@ import com.example.week7.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,6 +84,13 @@ public class PostServiceImpl implements PostService{
         );
 
         Page<Post> posts = postRepository.findAllByUser(user, pageable);
+
+        return posts.map(PostListResponse::fromEntity);
+    }
+
+    @Override
+    public Slice<PostListResponse> getAllPostSlice(Pageable pageable) {
+        Slice<Post> posts = postRepository.findAllWithUserSlice(pageable);
 
         return posts.map(PostListResponse::fromEntity);
     }

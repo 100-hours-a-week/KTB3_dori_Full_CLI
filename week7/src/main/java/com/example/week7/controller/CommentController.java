@@ -1,5 +1,6 @@
 package com.example.week7.controller;
 
+import com.example.week7.common.annotation.AuthUser;
 import com.example.week7.common.response.APIResponse;
 import com.example.week7.dto.request.comment.CommentRequestDto;
 import com.example.week7.dto.response.comment.CommentResponse;
@@ -27,9 +28,8 @@ public class CommentController {
     public ResponseEntity<APIResponse<CommentResponse>> createComment(
             @PathVariable Long postId,
             @RequestBody CommentRequestDto dto,
-            HttpServletRequest request
+            @AuthUser String email
     ) {
-        String email = (String) request.getAttribute("email");
         CommentResponse comment = commentService.createComment(dto, postId, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success("댓글 작성 성공", comment));
     }
@@ -49,9 +49,8 @@ public class CommentController {
             @PathVariable Long postId,
             @PathVariable Long id,
             @RequestBody CommentRequestDto dto,
-            HttpServletRequest request
+            @AuthUser String email
     ) {
-        String email = (String) request.getAttribute("email");
         CommentResponse comment = commentService.update(dto, id, email);
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("댓글 수정 성공", comment));
