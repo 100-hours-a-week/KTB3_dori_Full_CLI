@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse validateRefreshToken(String token) {
 
-        if (jwtUtil.isValidateToken(token)) {
+        if (jwtUtil.isInvalidToken(token)) {
             throw new UnauthorizedException(TOKEN_EXPIRE);
         }
 

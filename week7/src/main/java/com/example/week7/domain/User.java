@@ -3,6 +3,7 @@ package com.example.week7.domain;
 import com.example.week7.common.BasicTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class User extends BasicTimeEntity {
 
     @Id

@@ -2,6 +2,7 @@ package com.example.week7.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class RefreshToken {
 
     @Id

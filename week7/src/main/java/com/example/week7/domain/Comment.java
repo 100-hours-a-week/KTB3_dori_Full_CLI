@@ -3,6 +3,7 @@ package com.example.week7.domain;
 import com.example.week7.common.BasicTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Comment extends BasicTimeEntity {
 
     @Id

@@ -63,7 +63,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean isValidateToken(String token) {
+    public boolean isInvalidToken(String token) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)

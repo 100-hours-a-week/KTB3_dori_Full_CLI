@@ -3,6 +3,7 @@ package com.example.week7.domain;
 import com.example.week7.common.BasicTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Post extends BasicTimeEntity {
 
     @Id

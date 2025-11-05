@@ -4,4 +4,6 @@ import com.example.week7.dto.response.user.UserDetailResponse;
 
 public interface UserQueryService {
     UserDetailResponse getUserInfo(Long id);
+
+    UserDetailResponse getUserInfoByEmail(String email);
 }

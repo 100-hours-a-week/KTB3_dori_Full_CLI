@@ -1,6 +1,7 @@
 package com.example.week7.controller;
 
 import com.example.week7.common.exception.custom.UnauthorizedException;
+import com.example.week7.common.jwt.JwtUtil;
 import com.example.week7.common.response.APIResponse;
 import com.example.week7.dto.request.user.UserLoginDto;
 import com.example.week7.dto.response.user.LoginResponse;
@@ -22,6 +23,7 @@ import static com.example.week7.common.exception.ErrorMessage.*;
 public class AuthController {
 
     private final AuthServiceImpl authService;
+    private final JwtUtil jwtUtil;
 
     @PostMapping
     public ResponseEntity<APIResponse<LoginResponse>> login(@Valid @RequestBody UserLoginDto dto,
@@ -67,4 +69,20 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/token")
+    public ResponseEntity<APIResponse<Boolean>> isInvalidToken(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new UnauthorizedException(UNAUTHORIZED);
+        }
+
+        String[] token = header.split(" ");
+        boolean invalidToken = !jwtUtil.isInvalidToken(token[1]);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("토큰 검증 성공", invalidToken));
+    }
 }
+
+
+
