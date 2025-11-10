@@ -5,7 +5,6 @@ import com.example.week7.common.response.APIResponse;
 import com.example.week7.dto.request.comment.CommentRequestDto;
 import com.example.week7.dto.response.comment.CommentResponse;
 import com.example.week7.service.comment.CommentServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/posts/{postId}/comments")

@@ -46,38 +46,24 @@ public class UserCommandServiceImpl implements UserCommandService {
     }
 
     @Override
-    public UserDetailResponse updateUser(UserUpdateDto dto, Long id, String email) {
+    public UserDetailResponse updateUser(UserUpdateDto dto, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new UnauthorizedException(UNAUTHORIZED)
         );
 
-        User target = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
-        );
+        user.update(dto.getNickname(), dto.getProfileImage());
 
-        authValidator.validate(user, target);
-
-        target.update(dto.getNickname(), dto.getProfileImage());
-
-        return UserDetailResponse.fromEntity(target);
+        return UserDetailResponse.fromEntity(user);
     }
 
     @Override
-    public void changePassword(ChangePasswordDto dto, Long id, String email) {
+    public void changePassword(ChangePasswordDto dto, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new UnauthorizedException(UNAUTHORIZED)
         );
 
-        User target = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(RESOURCE_NOT_FOUND)
-        );
-
-        if (!user.getId().equals(target.getId())) {
-            throw new ForbiddenException(FORBIDDEN);
-        }
-
         authValidator.checkPassword(dto.getPassword(), dto.getPasswordCheck());
-        target.changePassword(passwordEncoder.encode(dto.getPassword()));
+        user.changePassword(passwordEncoder.encode(dto.getPassword()));
     }
 
     @Override

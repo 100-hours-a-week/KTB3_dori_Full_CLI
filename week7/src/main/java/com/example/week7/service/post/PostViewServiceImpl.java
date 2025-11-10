@@ -72,7 +72,7 @@ public class PostViewServiceImpl implements PostViewService {
 
 //    @Override
     @Transactional
-//    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 60000)
     public void syncViewCount() {
         Cache cache = cacheManager.getCache("viewcount");
         if (cache == null) return;

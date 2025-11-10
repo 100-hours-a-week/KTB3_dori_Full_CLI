@@ -12,9 +12,9 @@ public interface UserCommandService {
 
     UserDetailResponse getUserInfo(Long id);
 
-    UserDetailResponse updateUser(UserUpdateDto dto, Long id, String email);
+    UserDetailResponse updateUser(UserUpdateDto dto, String email);
 
-    void changePassword(ChangePasswordDto dto, Long id, String email);
+    void changePassword(ChangePasswordDto dto, String email);
 
     void delete(Long id);
 }
