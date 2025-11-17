@@ -90,35 +90,6 @@ public class PostViewServiceImpl implements PostViewService {
             }
         }
     }
-
-    @Transactional
-    public void syncViewCountWithJdbc() {
-        Cache cache = cacheManager.getCache("viewcount");
-        if (cache == null) return;
-
-        Object nativeCache = cache.getNativeCache();
-
-        if (nativeCache instanceof ConcurrentMap<?, ?> map) {
-
-            // JDBC batch update에 전달할 Map 생성
-            Map<Long, Long> updateMap = new HashMap<>();
-
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                Long postId = (Long) entry.getKey();
-                Long viewcount = (Long) entry.getValue();
-
-                updateMap.put(postId, viewcount);
-                log.info("[JDBC] Prepare update - postId: {}, viewcount: {}", postId, viewcount);
-            }
-
-            if (!updateMap.isEmpty()) {
-                postJdbcRepository.bulkUpdateViewcounts(updateMap);
-                log.info("[JDBC] Flushed {} viewcounts to DB via batch update", updateMap.size());
-            }
-
-            map.clear();
-        }
-    }
 }
 
 
