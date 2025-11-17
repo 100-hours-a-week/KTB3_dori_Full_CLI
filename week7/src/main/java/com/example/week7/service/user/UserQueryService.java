@@ -6,4 +6,9 @@ public interface UserQueryService {
     UserDetailResponse getUserInfo(Long id);
 
     UserDetailResponse getUserInfoByEmail(String email);
+
+    Boolean isEmailDuplicated(String email);
+
+    Boolean isNicknameDuplicated(String nickname);
 }
+

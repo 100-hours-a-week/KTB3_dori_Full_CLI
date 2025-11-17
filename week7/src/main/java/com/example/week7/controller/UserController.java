@@ -36,6 +36,19 @@ public class UserController {
                 .body(APIResponse.success("조회 성공", userInfo));
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<APIResponse<Boolean>> isEmailDuplicated(@RequestParam String email) {
+        Boolean emailDuplicated = userQueryService.isEmailDuplicated(email);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("이메일 중복 체크 성공", emailDuplicated));
+    }
+
+
+    @GetMapping("/nickname")
+    public ResponseEntity<APIResponse<Boolean>> isNicknameDuplicated(@RequestParam String nickname) {
+        Boolean nicknameDuplicated = userQueryService.isNicknameDuplicated(nickname);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success("이메일 중복 체크 성공", nicknameDuplicated));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userCommandService.delete(id);

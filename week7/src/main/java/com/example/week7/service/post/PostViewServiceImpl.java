@@ -2,6 +2,7 @@ package com.example.week7.service.post;
 
 import com.example.week7.common.exception.custom.ResourceNotFoundException;
 import com.example.week7.domain.Post;
+import com.example.week7.repository.post.PostJdbcRepository;
 import com.example.week7.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
@@ -26,6 +28,7 @@ import static com.example.week7.common.exception.ErrorMessage.*;
 public class PostViewServiceImpl implements PostViewService {
 
     private final PostRepository postRepository;
+    private final PostJdbcRepository postJdbcRepository;
     private final CacheManager cacheManager;
 
 
@@ -70,12 +73,13 @@ public class PostViewServiceImpl implements PostViewService {
         return post.getViewCount();
     }
 
-//    @Override
-    @Transactional
-    @Scheduled(fixedRate = 60000)
+    @Override
+    @Transactional(readOnly = false)
+//    @Scheduled(fixedRate = 60000)
     public void syncViewCount() {
         Cache cache = cacheManager.getCache("viewcount");
         if (cache == null) return;
+
         Object nativeCache = cache.getNativeCache();
         if (nativeCache instanceof ConcurrentMap<?, ?> map) {
             for (Map.Entry<?, ?> entry : map.entrySet()) {
@@ -86,4 +90,35 @@ public class PostViewServiceImpl implements PostViewService {
             }
         }
     }
+
+    @Transactional
+    public void syncViewCountWithJdbc() {
+        Cache cache = cacheManager.getCache("viewcount");
+        if (cache == null) return;
+
+        Object nativeCache = cache.getNativeCache();
+
+        if (nativeCache instanceof ConcurrentMap<?, ?> map) {
+
+            // JDBC batch update에 전달할 Map 생성
+            Map<Long, Long> updateMap = new HashMap<>();
+
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                Long postId = (Long) entry.getKey();
+                Long viewcount = (Long) entry.getValue();
+
+                updateMap.put(postId, viewcount);
+                log.info("[JDBC] Prepare update - postId: {}, viewcount: {}", postId, viewcount);
+            }
+
+            if (!updateMap.isEmpty()) {
+                postJdbcRepository.bulkUpdateViewcounts(updateMap);
+                log.info("[JDBC] Flushed {} viewcounts to DB via batch update", updateMap.size());
+            }
+
+            map.clear();
+        }
+    }
 }
+
+

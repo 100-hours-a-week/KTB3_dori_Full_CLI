@@ -17,4 +17,6 @@ public interface UserCommandService {
     void changePassword(ChangePasswordDto dto, String email);
 
     void delete(Long id);
+
+    void delete(String email);
 }

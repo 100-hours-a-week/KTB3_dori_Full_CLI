@@ -9,7 +9,6 @@ import com.example.week7.dto.request.post.PostRequestDto;
 import com.example.week7.dto.response.post.PostCreateResponse;
 import com.example.week7.dto.response.post.PostDetailResponse;
 import com.example.week7.dto.response.post.PostListResponse;
-import com.example.week7.repository.comment.CommentRepository;
 import com.example.week7.repository.post.PostRepository;
 import com.example.week7.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 import static com.example.week7.common.exception.ErrorMessage.*;
 

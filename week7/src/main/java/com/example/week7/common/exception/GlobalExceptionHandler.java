@@ -29,35 +29,5 @@ public class GlobalExceptionHandler {
         ErrorMessage errorMessage = e.getErrorMessage();
         return ResponseEntity.status(errorMessage.getStatus()).body(APIResponse.fail(errorMessage.getMessage()));
     }
-
-
-   /* @ExceptionHandler(DuplicatedException.class)
-    public ResponseEntity<APIResponse<?>> handleUserDuplicatedException(DuplicatedException e) {
-        String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(APIResponse.fail(message));
-    }
-
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<APIResponse<?>> handleBadRequestException(BadRequestException e) {
-        String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(APIResponse.fail(message));
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<APIResponse<?>> handleResourceNotFoundException(ResourceNotFoundException e) {
-        String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(APIResponse.fail(message));
-    }
-
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<APIResponse<?>> handleUnauthorizedException(UnauthorizedException e) {
-        String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(APIResponse.fail(message));
-    }
-
-    @ExceptionHandler(ForbiddenException.class)
-    public ResponseEntity<APIResponse<?>> handleUnauthenticatedException(ForbiddenException e) {
-        String message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(APIResponse.fail(message));
-    }*/
+    
 }

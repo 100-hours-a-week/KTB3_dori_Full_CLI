@@ -24,6 +24,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT p FROM Post p JOIN FETCH p.user WHERE p.user = :user")
     Page<Post> findAllByUser(User user , Pageable pageable);
 
+    @Query(value = "SELECT p FROM Post p JOIN FETCH p.user WHERE p.user = :user")
+    List<Post> findAllByUser(User user);
+
     @Query(value = "SELECT p FROM Post p JOIN FETCH p.user")
     Slice<Post> findAllWithUserSlice(Pageable pageable);
+
+    @Query(value = "SELECT count(p) FROM Post p WHERE p.user.id = :userId")
+    long countByUserId(Long userId);
 }
